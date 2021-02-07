@@ -1,0 +1,40 @@
+<div class="container dark">
+  <section class="section">
+    <h1 class="title">Users</h1>
+    <h2 class="subtitle">
+      A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading.
+    </h2>
+    <div class="buttons">
+      <button routerLink="/add" class="button is-success">Crear</button>
+      <button routerLink="/edit" class="button is-warning">Editar</button>
+      <button (click)="onDelete()" class="button is-danger">Eliminar</button>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>Nick</th>
+        <th>Email</th>
+        <th>Age</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users | async">
+        <td><input type="radio" name="user"></td>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.lastname }}</td>
+        <td>{{ user.nickname }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.age }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+
+</div>

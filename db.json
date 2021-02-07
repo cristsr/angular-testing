@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "name": "jhon",
+      "lastname": "doe",
+      "nickname": "jhondoe",
+      "email": "jhondoe@gmail.com",
+      "age": 30
+    },
+    {
+      "name": "cristian",
+      "lastname": "puenguenan",
+      "nickname": "crsrex|",
+      "email": "styven21121@gmail.com",
+      "age": 22,
+      "id": 1
+    }
+  ]
+}
