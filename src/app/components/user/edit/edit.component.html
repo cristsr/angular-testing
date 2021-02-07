@@ -1,0 +1,11 @@
+<div class="container dark">
+  <section class="section">
+    <h1 class="title">Edit user</h1>
+    <app-form
+      btnTitle="Update"
+      [isLoading]="isLoading"
+      [value]="selectedUser"
+      (formValue)="onUpdate($event)">
+    </app-form>
+  </section>
+</div>

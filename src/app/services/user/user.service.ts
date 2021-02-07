@@ -9,8 +9,8 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
+  public selectedUser!: User;
   private userRepository = new BehaviorSubject<User[]>([]);
-  private selectedUser: User;
 
   constructor(private http: HttpClient) { }
 
@@ -44,8 +44,8 @@ export class UserService {
     );
   }
 
-  updateUser(user: any): Observable<any> {
-    const url = environment.apiUrl + '/users';
+  updateUser(user: User): Observable<any> {
+    const url = `${environment.apiUrl}/users/${user.id}`;
     return this.http.put<User>(url, user).pipe(
       tap(res => this.userRepository.next(
         this.userRepository.value.map(
@@ -56,11 +56,11 @@ export class UserService {
   }
 
   deleteUser(userId: any): Observable<any> {
-    const url = environment.apiUrl + '/users';
+    const url = `${environment.apiUrl}/users/${userId}`;
     return this.http.delete<User>(url).pipe(
-      tap(res => this.userRepository.next(
+      tap(() => this.userRepository.next(
         this.userRepository.value.filter(
-          v => v.id !== res.id
+          v => v.id !== userId
         )
       )),
     );

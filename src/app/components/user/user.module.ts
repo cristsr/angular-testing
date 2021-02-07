@@ -7,6 +7,7 @@ import { UserComponent } from './user.component';
 import { ListComponent } from './list/list.component';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
+import { FormComponent } from './form/form.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { EditComponent } from './edit/edit.component';
     UserComponent,
     ListComponent,
     CreateComponent,
-    EditComponent
+    EditComponent,
+    FormComponent
   ],
   imports: [
     CommonModule,

@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+  isChecked = false;
+  selectedUser: User;
   users: Observable<User[]> = this.userService.users;
 
   constructor(
@@ -18,7 +20,18 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onDelete(): void {
+  onCheck(user: any): void {
+    this.isChecked = true;
+    this.selectedUser = user;
+  }
 
+  onEdit(): void {
+    this.userService.setSelectedUser(this.selectedUser);
+  }
+
+  onDelete(): void {
+    this.userService.deleteUser(this.selectedUser.id).subscribe(
+      () => alert('Eliminado con exito')
+    );
   }
 }

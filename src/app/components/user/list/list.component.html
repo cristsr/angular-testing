@@ -6,8 +6,8 @@
     </h2>
     <div class="buttons">
       <button routerLink="/add" class="button is-success">Crear</button>
-      <button routerLink="/edit" class="button is-warning">Editar</button>
-      <button (click)="onDelete()" class="button is-danger">Eliminar</button>
+      <button [disabled]="!isChecked" routerLink="/edit" (click)="onEdit()" class="button is-warning">Editar</button>
+      <button [disabled]="!isChecked" (click)="onDelete()" class="button is-danger">Eliminar</button>
     </div>
     <table class="table">
       <thead>
@@ -23,7 +23,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let user of users | async">
-        <td><input type="radio" name="user"></td>
+        <td><input type="radio" name="user" (change)="onCheck(user)"></td>
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.lastname }}</td>
