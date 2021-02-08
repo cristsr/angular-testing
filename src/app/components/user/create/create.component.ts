@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../../services/user/user.service';
+import { ModalService } from '../../../services/modal/modal.service';
+import { AlertComponent } from '../../../modal/alert/alert.component';
 
 @Component({
   selector: 'app-add',
@@ -9,7 +11,10 @@ import { UserService } from '../../../services/user/user.service';
 export class CreateComponent {
   isLoading!: boolean;
 
-  constructor(public userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private modalService: ModalService
+  ) { }
 
   onCreate(formValue: any): void {
     console.log(formValue);
@@ -17,6 +22,11 @@ export class CreateComponent {
     this.userService.createUser(formValue).subscribe(
       () => {
         this.isLoading = false;
+        this.modalService.openModal(AlertComponent, {
+          title: 'Success',
+          subtitle: 'User created successfully',
+          type: 'success'
+        }).subscribe();
       }
     );
   }

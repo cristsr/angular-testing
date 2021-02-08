@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user/user.service';
 import { User } from '../../../types/user.type';
+import { ModalService } from '../../../services/modal/modal.service';
+import { AlertComponent } from '../../../modal/alert/alert.component';
 
 @Component({
   selector: 'app-edit',
@@ -11,7 +13,10 @@ export class EditComponent implements OnInit {
   isLoading!: boolean;
   selectedUser!: User;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.selectedUser = this.userService.selectedUser;
@@ -27,7 +32,11 @@ export class EditComponent implements OnInit {
     this.userService.updateUser(data).subscribe(
       () => {
         this.isLoading = false;
-        alert('Actualizacion exitosa');
+        this.modalService.openModal(AlertComponent, {
+          title: 'Success',
+          subtitle: 'User updated successfully',
+          type: 'success'
+        }).subscribe();
       }
     );
   }

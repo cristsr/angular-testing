@@ -35,7 +35,7 @@ export class UserService {
     ).subscribe();
   }
 
-  createUser(user: User): Observable<any> {
+  createUser(user: User): Observable<User> {
     const url = environment.apiUrl + '/users';
     return this.http.post<User>(url, user).pipe(
       tap(res => this.userRepository.next([
@@ -44,7 +44,7 @@ export class UserService {
     );
   }
 
-  updateUser(user: User): Observable<any> {
+  updateUser(user: User): Observable<User> {
     const url = `${environment.apiUrl}/users/${user.id}`;
     return this.http.put<User>(url, user).pipe(
       tap(res => this.userRepository.next(
@@ -55,7 +55,7 @@ export class UserService {
     );
   }
 
-  deleteUser(userId: any): Observable<any> {
+  deleteUser(userId: any): Observable<User> {
     const url = `${environment.apiUrl}/users/${userId}`;
     return this.http.delete<User>(url).pipe(
       tap(() => this.userRepository.next(

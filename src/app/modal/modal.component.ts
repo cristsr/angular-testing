@@ -1,18 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
+import { ModalService } from '../services/modal/modal.service';
 
 @Component({
   selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  template: `<ng-container #container></ng-container>`,
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent implements AfterViewInit  {
 
-  constructor() { }
+  @ViewChild('container', {read: ViewContainerRef}) container!: ViewContainerRef;
 
+  constructor(
+    private cd: ChangeDetectorRef,
+    private modalService: ModalService,
+  ) { }
 
-
-
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.modalService.setContainer(this.container);
   }
 
 }

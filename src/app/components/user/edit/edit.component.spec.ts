@@ -1,6 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditComponent } from './edit.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormComponent } from '../form/form.component';
+import { UserService } from '../../../services/user/user.service';
+import { ModalService } from '../../../services/modal/modal.service';
+import { of } from 'rxjs';
 
 describe('EditComponent', () => {
   let component: EditComponent;
@@ -8,7 +14,9 @@ describe('EditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditComponent ]
+      imports: [ HttpClientTestingModule, ReactiveFormsModule ],
+      declarations: [ EditComponent, FormComponent ],
+      providers: [ UserService, ModalService]
     })
     .compileComponents();
   });
@@ -21,5 +29,23 @@ describe('EditComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('call onUpdate',  () => {
+    const formData = {
+      name: 'test',
+      lastname: 'test',
+      nickname: 'test',
+      email: 'test@test',
+      age: 0
+    };
+    const userService = TestBed.inject(UserService);
+    const modalService = TestBed.inject(ModalService);
+    spyOn(userService, 'updateUser').and.returnValue(of(formData));
+    spyOn(modalService, 'openModal').and.returnValue(of({}));
+
+    component.onUpdate(formData);
+    expect(userService.updateUser).toHaveBeenCalled();
+    expect(modalService.openModal).toHaveBeenCalled();
   });
 });

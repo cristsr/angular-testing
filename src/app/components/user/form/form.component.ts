@@ -52,6 +52,7 @@ export class FormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.value?.currentValue) {
+      console.log('form value passed');
       Object.entries(this.value).forEach(([key, value]) => {
         this.form.get(key)?.setValue(value);
       });
