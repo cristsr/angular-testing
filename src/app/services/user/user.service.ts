@@ -57,6 +57,7 @@ export class UserService {
 
   deleteUser(userId: any): Observable<User> {
     const url = `${environment.apiUrl}/users/${userId}`;
+
     return this.http.delete<User>(url).pipe(
       tap(() => this.userRepository.next(
         this.userRepository.value.filter(

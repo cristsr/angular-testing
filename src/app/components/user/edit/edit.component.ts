@@ -32,7 +32,7 @@ export class EditComponent implements OnInit {
     this.userService.updateUser(data).subscribe(
       () => {
         this.isLoading = false;
-        this.modalService.openModal(AlertComponent, {
+        this.modalService.open(AlertComponent, {
           title: 'Success',
           subtitle: 'User updated successfully',
           type: 'success'

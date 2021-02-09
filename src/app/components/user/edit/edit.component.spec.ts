@@ -42,10 +42,10 @@ describe('EditComponent', () => {
     const userService = TestBed.inject(UserService);
     const modalService = TestBed.inject(ModalService);
     spyOn(userService, 'updateUser').and.returnValue(of(formData));
-    spyOn(modalService, 'openModal').and.returnValue(of({}));
+    spyOn(modalService, 'open').and.returnValue(of({}));
 
     component.onUpdate(formData);
     expect(userService.updateUser).toHaveBeenCalled();
-    expect(modalService.openModal).toHaveBeenCalled();
+    expect(modalService.open).toHaveBeenCalled();
   });
 });

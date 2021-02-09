@@ -5,9 +5,9 @@
       A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading.
     </h2>
     <div class="buttons">
-      <button routerLink="/add" class="button is-success">Crear</button>
-      <button [disabled]="!isChecked" routerLink="/edit" (click)="onEdit()" class="button is-warning">Editar</button>
-      <button [disabled]="!isChecked" (click)="onDelete()" class="button is-danger">Eliminar</button>
+      <button routerLink="/add" class="button is-success">Create</button>
+      <button [disabled]="!isChecked" routerLink="/edit" (click)="onEdit()" class="button is-warning">Edit</button>
+      <button [disabled]="!isChecked" (click)="onDelete()" class="button is-danger" [class.is-loading]="isLoading">Delete</button>
     </div>
     <table class="table">
       <thead>

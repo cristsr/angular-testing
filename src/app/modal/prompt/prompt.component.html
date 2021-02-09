@@ -5,7 +5,8 @@
       <h1>{{ config.title }}</h1>
       <p>{{ config.subtitle }}</p>
       <div class="buttons is-justify-content-end">
-        <button (click)="close()" class="button" [ngClass]="getClass()">Close</button>
+        <button (click)="onAccept()" class="button is-success">Accept</button>
+        <button (click)="onDecline()" class="button is-danger">Decline</button>
       </div>
     </div>
     <!-- Any other Bulma elements you want -->

@@ -22,7 +22,7 @@ export class CreateComponent {
     this.userService.createUser(formValue).subscribe(
       () => {
         this.isLoading = false;
-        this.modalService.openModal(AlertComponent, {
+        this.modalService.open(AlertComponent, {
           title: 'Success',
           subtitle: 'User created successfully',
           type: 'success'

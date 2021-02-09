@@ -1,13 +1,12 @@
 import { ComponentFactoryResolver, ComponentRef, Injectable, Type, ViewContainerRef } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { EMPTY, iif, Observable } from 'rxjs';
+import { filter, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
   private container!: ViewContainerRef;
-  private componentRef!: ComponentRef<any>;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -17,13 +16,20 @@ export class ModalService {
     this.container = container;
   }
 
-  openModal(component: Type<any>, config: any): Observable<any> {
+  open(component: Type<any>, config: any): Observable<any> {
     const factoryComponent = this.resolver.resolveComponentFactory(component);
-    this.componentRef = this.container.createComponent(factoryComponent);
-    this.componentRef.instance.config = config;
+    const componentRef = this.container.createComponent(factoryComponent);
+    this.subscribeToDestroy(componentRef);
+    componentRef.instance.config = config;
 
-    return this.componentRef.instance.action.pipe(
-      tap((action: any) => action.destroy && this.componentRef.destroy())
+    return componentRef.instance.action.pipe(
+      map((action: any) => action.data)
     );
+  }
+
+  subscribeToDestroy(componentRef: ComponentRef<any>): void {
+    componentRef.instance.action.pipe(
+      filter((action: any) => action.destroy),
+    ).subscribe(() => componentRef.destroy());
   }
 }
