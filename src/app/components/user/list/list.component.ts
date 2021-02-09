@@ -55,7 +55,10 @@ export class ListComponent implements OnInit {
     };
 
     this.modalService.open(PromptComponent, confirmModalConfig).pipe(
-      filter(action => action.confirm),
+      filter(action => {
+        this.isLoading = false;
+        return action.confirm;
+      }),
       switchMap(() => this.userService.deleteUser(this.selectedUser.id)),
     ).subscribe(
       () => {
