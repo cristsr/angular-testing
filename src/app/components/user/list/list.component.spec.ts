@@ -140,7 +140,7 @@ describe('ListComponent', () => {
     component.onDelete();
 
     expect(component.selectedUser).toEqual(user);
-    expect(userService.deleteUser).toHaveBeenCalled();
+    expect(userService.deleteUser).not.toHaveBeenCalled();
     expect(modalService.open).toHaveBeenCalled();
   });
 
@@ -165,7 +165,6 @@ describe('ListComponent', () => {
     component.selectedUser = user;
     component.onDelete();
 
-    expect(component.selectedUser).toEqual(user);
     expect(userService.deleteUser).toHaveBeenCalled();
     expect(modalService.open).toHaveBeenCalled();
   });
