@@ -26,7 +26,7 @@ export class CreateComponent {
           title: 'Success',
           subtitle: 'User created successfully',
           type: 'success'
-        }).subscribe();
+        });
       }
     );
   }

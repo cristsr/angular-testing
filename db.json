@@ -11,10 +11,26 @@
     {
       "name": "cristian",
       "lastname": "puenguenan",
-      "nickname": "crsrex updated",
+      "nickname": "crsrex",
       "email": "styven21121@gmail.com",
       "age": 22,
       "id": 1
+    },
+    {
+      "name": "tres",
+      "lastname": "asd",
+      "nickname": "asd",
+      "email": "asd",
+      "age": 22,
+      "id": 2
+    },
+    {
+      "name": "tres",
+      "lastname": "asd",
+      "nickname": "asd",
+      "email": "asd",
+      "age": 22,
+      "id": 3
     }
   ]
 }

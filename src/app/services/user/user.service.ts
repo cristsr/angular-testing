@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, EMPTY, Observable } from 'rxjs';
-import { catchError, filter, tap } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, Observable, of } from 'rxjs';
+import { catchError, delay, filter, switchMap, tap } from 'rxjs/operators';
 import { User } from '../../types/user.type';
 import { environment } from '../../../environments/environment';
 
@@ -58,12 +58,14 @@ export class UserService {
   deleteUser(userId: any): Observable<User> {
     const url = `${environment.apiUrl}/users/${userId}`;
 
-    return this.http.delete<User>(url).pipe(
-      tap(() => this.userRepository.next(
-        this.userRepository.value.filter(
-          v => v.id !== userId
+    return of(null).pipe(delay(5000), switchMap(
+      () => this.http.delete<User>(url).pipe(
+          tap(() => this.userRepository.next(
+            this.userRepository.value.filter(
+              v => v.id !== userId
+            )
+          )),
         )
-      )),
-    );
+    ));
   }
 }

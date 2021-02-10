@@ -4,8 +4,9 @@ import { ListComponent } from './list.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UserService } from '../../../services/user/user.service';
 import { User } from '../../../types/user.type';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ModalService } from '../../../services/modal/modal.service';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -15,7 +16,7 @@ describe('ListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [ ListComponent ],
-      providers: [UserService]
+      providers: [ UserService ]
     })
     .compileComponents();
   });
@@ -23,6 +24,7 @@ describe('ListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
+    component.ngOnInit();
     fixture.detectChanges();
   });
 
@@ -90,8 +92,7 @@ describe('ListComponent', () => {
     expect(service.setSelectedUser).toHaveBeenCalled();
   });
 
-  it('call onDelete', () =>  {
-    const service = TestBed.inject(UserService);
+  it('call onDelete successful', () =>  {
     const user: User = {
       id: 0,
       name: 'test',
@@ -101,11 +102,71 @@ describe('ListComponent', () => {
       age: 0
     };
 
+    const userService = TestBed.inject(UserService);
+    const modalService = TestBed.inject(ModalService);
+
+    spyOn(userService, 'deleteUser').and.returnValue(of(user));
+    spyOn(modalService, 'open').and.returnValue(of({
+      confirm: true
+    }));
+
     component.selectedUser = user;
-    spyOn(service, 'deleteUser').and.returnValue(of(user));
     component.onDelete();
 
     expect(component.selectedUser).toEqual(user);
-    expect(service.deleteUser).toHaveBeenCalled();
+    expect(userService.deleteUser).toHaveBeenCalled();
+    expect(modalService.open).toHaveBeenCalled();
+  });
+
+  it('call onDelete decline', () =>  {
+    const user: User = {
+      id: 0,
+      name: 'test',
+      lastname: 'test',
+      email: 'test',
+      nickname: 'test',
+      age: 0
+    };
+
+    const userService = TestBed.inject(UserService);
+    const modalService = TestBed.inject(ModalService);
+
+    spyOn(userService, 'deleteUser').and.returnValue(of(user));
+    spyOn(modalService, 'open').and.returnValue(of({
+      confirm: false
+    }));
+
+    component.selectedUser = user;
+    component.onDelete();
+
+    expect(component.selectedUser).toEqual(user);
+    expect(userService.deleteUser).toHaveBeenCalled();
+    expect(modalService.open).toHaveBeenCalled();
+  });
+
+  it('call onDelete error', () =>  {
+    const user: User = {
+      id: 0,
+      name: 'test',
+      lastname: 'test',
+      email: 'test',
+      nickname: 'test',
+      age: 0
+    };
+
+    const userService = TestBed.inject(UserService);
+    const modalService = TestBed.inject(ModalService);
+
+    spyOn(userService, 'deleteUser').and.returnValue(throwError('error'));
+    spyOn(modalService, 'open').and.returnValue(of({
+      confirm: true
+    }));
+
+    component.selectedUser = user;
+    component.onDelete();
+
+    expect(component.selectedUser).toEqual(user);
+    expect(userService.deleteUser).toHaveBeenCalled();
+    expect(modalService.open).toHaveBeenCalled();
   });
 });
