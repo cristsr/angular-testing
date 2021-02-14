@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ModalService } from '../../../services/modal/modal.service';
 import { PromptComponent } from '../../../modal/prompt/prompt.component';
 import { AlertComponent } from '../../../modal/alert/alert.component';
-import { catchError, filter, switchMap, tap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list',
