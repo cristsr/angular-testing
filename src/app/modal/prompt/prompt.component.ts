@@ -30,6 +30,5 @@ export class PromptComponent implements OnInit {
         confirm: true
       }
     });
-
   }
 }

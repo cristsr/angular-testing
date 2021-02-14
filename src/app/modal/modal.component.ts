@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   ViewChild,
   ViewContainerRef
@@ -16,12 +15,10 @@ export class ModalComponent implements AfterViewInit  {
   @ViewChild('container', {read: ViewContainerRef}) container!: ViewContainerRef;
 
   constructor(
-    private cd: ChangeDetectorRef,
     private modalService: ModalService,
   ) { }
 
   ngAfterViewInit(): void {
     this.modalService.setContainer(this.container);
   }
-
 }

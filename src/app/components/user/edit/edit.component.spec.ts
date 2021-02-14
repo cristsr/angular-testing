@@ -7,6 +7,7 @@ import { FormComponent } from '../form/form.component';
 import { UserService } from '../../../services/user/user.service';
 import { ModalService } from '../../../services/modal/modal.service';
 import { of } from 'rxjs';
+import { User } from '../../../types/user.type';
 
 describe('EditComponent', () => {
   let component: EditComponent;
@@ -32,13 +33,15 @@ describe('EditComponent', () => {
   });
 
   it('call onUpdate',  () => {
-    const formData = {
+    const formData: User = {
+      id: 0,
       name: 'test',
       lastname: 'test',
       nickname: 'test',
       email: 'test@test',
       age: 0
     };
+
     const userService = TestBed.inject(UserService);
     const modalService = TestBed.inject(ModalService);
     spyOn(userService, 'updateUser').and.returnValue(of(formData));

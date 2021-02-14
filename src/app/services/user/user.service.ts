@@ -18,6 +18,10 @@ export class UserService {
     this.selectedUser = user;
   }
 
+  setUsers(users: User[]): void {
+    this.userRepository.next(users);
+  }
+
   get users(): Observable<User[]> {
     if (!this.userRepository.value.length) {
       this.fetchUsers();
@@ -31,14 +35,14 @@ export class UserService {
     this.http.get<User[]>(url).pipe(
       filter(user => Array.isArray(user)),
       catchError(() => EMPTY),
-      tap(users => this.userRepository.next(users))
+      tap(users => this.setUsers(users))
     ).subscribe();
   }
 
   createUser(user: User): Observable<User> {
     const url = environment.apiUrl + '/users';
     return this.http.post<User>(url, user).pipe(
-      tap(res => this.userRepository.next([
+      tap(res => this.setUsers([
         ...this.userRepository.value, res
       ]))
     );
@@ -47,7 +51,7 @@ export class UserService {
   updateUser(user: User): Observable<User> {
     const url = `${environment.apiUrl}/users/${user.id}`;
     return this.http.put<User>(url, user).pipe(
-      tap(res => this.userRepository.next(
+      tap(res => this.setUsers(
         this.userRepository.value.map(
           v => v.id === res.id ? res : v
         )
@@ -55,17 +59,16 @@ export class UserService {
     );
   }
 
-  deleteUser(userId: any): Observable<User> {
+  deleteUser(userId: number): Observable<User> {
     const url = `${environment.apiUrl}/users/${userId}`;
 
-    return of(null).pipe(delay(5000), switchMap(
+    return of(null).pipe(delay(2000), switchMap(
       () => this.http.delete<User>(url).pipe(
-          tap(() => this.userRepository.next(
-            this.userRepository.value.filter(
-              v => v.id !== userId
-            )
-          )),
-        )
+        tap(() => this.setUsers(
+          this.userRepository.value.filter(
+            v => v.id !== userId
+          )
+        )))
     ));
   }
 }

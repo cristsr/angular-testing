@@ -32,7 +32,7 @@ describe('ListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('users intialization',  () => {
+  it('users initialization',  () => {
     const service = TestBed.inject(UserService);
     const users = [
       {

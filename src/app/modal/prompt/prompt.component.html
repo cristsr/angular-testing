@@ -2,8 +2,8 @@
   <div class="modal-background"></div>
   <div class="modal-content">
     <div class="content is-medium mx-6 my-4">
-      <h1>{{ config.title }}</h1>
-      <p>{{ config.subtitle }}</p>
+      <h1 id="title">{{ config.title }}</h1>
+      <p id="subtitle">{{ config.subtitle }}</p>
       <div class="buttons is-justify-content-end">
         <button (click)="onAccept()" class="button is-success">Accept</button>
         <button (click)="onDecline()" class="button is-danger">Decline</button>

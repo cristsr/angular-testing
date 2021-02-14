@@ -4,7 +4,7 @@
     <div class="control">
       <input class="input" type="text" formControlName="name">
     </div>
-    <ng-container *ngIf="name.invalid && (name.dirty  || name.touched)">
+    <ng-container *ngIf="validateControl(form.get('name'))">
       <small class="has-text-danger">Field is required</small>
     </ng-container>
   </div>
@@ -14,7 +14,7 @@
     <div class="control">
       <input class="input" type="text" formControlName="lastname">
     </div>
-    <ng-container *ngIf="lastname.invalid && (lastname.dirty  || lastname.touched)">
+    <ng-container *ngIf="validateControl(form.get('lastname'))">
       <small class="has-text-danger">Field is required</small>
     </ng-container>
   </div>
@@ -24,7 +24,7 @@
     <div class="control">
       <input class="input" type="text" formControlName="nickname">
     </div>
-    <ng-container *ngIf="nickname.invalid && (nickname.dirty  || nickname.touched)">
+    <ng-container *ngIf="validateControl(form.get('nickname'))">
       <small class="has-text-danger">Field is required</small>
     </ng-container>
   </div>
@@ -34,7 +34,7 @@
     <div class="control">
       <input class="input" type="text" formControlName="email">
     </div>
-    <ng-container *ngIf="email.invalid && (email.dirty  || email.touched)">
+    <ng-container *ngIf="validateControl(form.get('email'))">
       <small class="has-text-danger">Field is required</small>
     </ng-container>
   </div>
@@ -44,7 +44,7 @@
     <div class="control">
       <input class="input" type="number" formControlName="age">
     </div>
-    <ng-container *ngIf="age.invalid && (age.dirty  || age.touched)">
+    <ng-container *ngIf="validateControl(form.get('age'))">
       <small class="has-text-danger">Field is required</small>
     </ng-container>
   </div>

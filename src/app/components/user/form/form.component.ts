@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../types/user.type';
 
 @Component({
@@ -27,27 +27,14 @@ export class FormComponent implements OnInit, OnChanges {
     private el: ElementRef
   ) { }
 
-  get name(): AbstractControl {
-    return this.form.get('name') as any;
-  }
-
-  get lastname(): AbstractControl {
-    return this.form.get('lastname') as any;
-  }
-
-  get nickname(): AbstractControl{
-    return this.form.get('nickname') as any;
-  }
-
-  get email(): AbstractControl {
-    return this.form.get('email')  as any;
-  }
-
-  get age(): AbstractControl{
-    return this.form.get('age') as any;
-  }
-
   ngOnInit(): void {
+  }
+
+  validateControl(control: AbstractControl | null): boolean {
+    if (!control) {
+      throw new TypeError(`Control given not exist`);
+    }
+    return control.invalid && (control.dirty || control.touched);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

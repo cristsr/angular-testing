@@ -36,9 +36,17 @@ describe('FormComponent', () => {
   });
 
   it('form field validation', () => {
-    expect(component.name.valid).toBeFalsy();
-    component.name.setValue('test');
-    expect(component.name.valid).toBeTruthy();
+    expect(component.form.get('name')?.valid).toBeFalsy();
+    component.form.get('name')?.setValue('test');
+    expect(component.form.get('name')?.valid).toBeTruthy();
+  });
+
+  it('form field not exist', () => {
+    try {
+      component.validateControl(component.form.get('test'));
+    } catch (e) {
+      expect(e).toBeInstanceOf(TypeError);
+    }
   });
 
   it('form is valid', () => {
@@ -69,7 +77,12 @@ describe('FormComponent', () => {
       tap(value => expect(value).toEqual(formData))
     ).subscribe();
 
+    component.resetOnSubmit = false;
     component.onSave();
+
+    component.resetOnSubmit = true;
+    component.onSave();
+
   });
 
   it('call onSave invalid form',  () => {
@@ -89,7 +102,6 @@ describe('FormComponent', () => {
       email: 'test@test',
       age: 0,
     };
-
     component.value = formData;
     component.ngOnChanges({
       value: new SimpleChange(null , formData, true)
@@ -99,6 +111,7 @@ describe('FormComponent', () => {
   });
 
   it('call scrollToFirstInvalidControl ', () => {
+    fixture.elementRef.nativeElement.querySelector( 'form .ng-invalid');
     component.scrollToFirstInvalidControl();
     expect(component.form.valid).toBeFalsy();
   });
