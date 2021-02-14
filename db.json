@@ -15,30 +15,6 @@
       "email": "styven21121@gmail.com",
       "age": 22,
       "id": 1
-    },
-    {
-      "name": "tres",
-      "lastname": "asd",
-      "nickname": "asd",
-      "email": "asd",
-      "age": 22,
-      "id": 2
-    },
-    {
-      "name": "tres",
-      "lastname": "asd",
-      "nickname": "asd",
-      "email": "asd",
-      "age": 22,
-      "id": 3
-    },
-    {
-      "name": "adfasd",
-      "lastname": "asdfas",
-      "nickname": "asdf",
-      "email": "asdf",
-      "age": 2323,
-      "id": 4
     }
   ]
 }

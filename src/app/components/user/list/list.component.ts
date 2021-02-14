@@ -58,6 +58,7 @@ export class ListComponent implements OnInit {
       filter(action => {
         if (!action.confirm) {
           this.isLoading = false;
+          this.isChecked = false;
         }
         return action.confirm;
       }),
@@ -66,10 +67,12 @@ export class ListComponent implements OnInit {
       () => {
         this.modalService.open(AlertComponent, alertModalConfigSuccess);
         this.isLoading = false;
+        this.isChecked = false;
       },
       () => {
         this.modalService.open(AlertComponent, alertModalConfigError);
         this.isLoading = false;
+        this.isChecked = false;
       }
     );
   }
